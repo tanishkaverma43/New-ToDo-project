@@ -36,12 +36,11 @@ body {
   background: #555;
 }
 
-/* Smooth transitions */
+
 * {
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
-/* Animation for notification banner */
 @keyframes slide-down {
   from {
     transform: translateY(-100%);

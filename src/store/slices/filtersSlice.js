@@ -2,9 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   searchQuery: '',
-  priorityFilter: 'All', // All, Low, High, Completed
+  priorityFilter: 'All', 
   currentProject: 'Mobile App',
-  dateFilter: 'Today', // Today, This Week, This Month, All
+  dateFilter: 'Today', 
 };
 
 const filtersSlice = createSlice({

@@ -14,7 +14,7 @@ function App() {
   const { isSignedIn, isLoaded } = useUser();
   const hash = window.location.hash;
 
-  // Clear hash and redirect to home after successful authentication
+  
   useEffect(() => {
     if (isLoaded && isSignedIn && (hash === '#/sign-in' || hash === '#/sign-up')) {
       window.history.replaceState(null, '', window.location.pathname);
@@ -48,7 +48,7 @@ function App() {
         </div>
       </SignedIn>
       <SignedOut>
-        {/* Handle routing for sign in/up pages */}
+       
         {hash === '#/sign-up' ? (
           <SignUpPage />
         ) : (

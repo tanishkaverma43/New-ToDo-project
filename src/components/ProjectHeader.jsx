@@ -3,6 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link2, ArrowLeftRight, ChevronDown, Calendar, Share2, Filter, Equal, List, Grid3x3, Plus, Menu, ChevronLeft, ChevronRight } from 'lucide-react';
 import { setPriorityFilter, setDateFilter } from '../store/slices/filtersSlice';
 import { format, startOfMonth, endOfMonth, startOfWeek, endOfWeek, eachDayOfInterval, isSameMonth, isSameDay, addMonths, subMonths, isToday } from 'date-fns';
+import firstImage from '../assets/first.png';
+import secondImage from '../assets/2nd.png';
+import thirdImage from '../assets/3nr.png';
+import fourthImage from '../assets/4th.png';
 
 const ProjectHeader = () => {
   const dispatch = useDispatch();
@@ -15,10 +19,10 @@ const ProjectHeader = () => {
   const calendarRef = useRef(null);
 
   const teamMembers = [
-    { id: 1, name: 'User 1', avatar: '👨‍💼', color: '#FCD34D' },
-    { id: 2, name: 'User 2', avatar: '👩‍💼', color: '#93C5FD' },
-    { id: 3, name: 'User 3', avatar: '👨‍💻', color: '#93C5FD' },
-    { id: 4, name: 'User 4', avatar: '👩‍🎨', color: '#D97757' },
+    { id: 1, name: 'User 1', avatar: firstImage, color: '#FCD34D' },
+    { id: 2, name: 'User 2', avatar: secondImage, color: '#93C5FD' },
+    { id: 3, name: 'User 3', avatar: thirdImage, color: '#93C5FD' },
+    { id: 4, name: 'User 4', avatar: fourthImage, color: '#D97757' },
   ];
 
   const monthStart = startOfMonth(currentMonth);
@@ -46,7 +50,6 @@ const ProjectHeader = () => {
     setShowCalendar(false);
   };
 
-  // Close calendar when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (calendarRef.current && !calendarRef.current.contains(event.target)) {
@@ -65,7 +68,7 @@ const ProjectHeader = () => {
 
   return (
     <div className="mb-6">
-      {/* Top Row: Title and Invite Section */}
+   
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
           <h1 className="text-4xl font-bold text-gray-900">{currentProject}</h1>
@@ -78,7 +81,7 @@ const ProjectHeader = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          {/* Invite Button with Team Avatars */}
+       
           <div className="flex items-center gap-2">
             <button className="flex items-center gap-2 transition-colors font-medium text-sm hover:opacity-90" style={{ color: '#7C3AED' }}>
               <Plus size={16} style={{ color: '#7C3AED' }} />
@@ -88,11 +91,11 @@ const ProjectHeader = () => {
               {teamMembers.map((member) => (
                 <div
                   key={member.id}
-                  className="w-9 h-9 rounded-full border-2 border-white flex items-center justify-center text-base"
+                  className="w-9 h-9 rounded-full border-2 border-white flex items-center justify-center overflow-hidden"
                   style={{ backgroundColor: member.color }}
                   title={member.name}
                 >
-                  {member.avatar}
+                  <img src={member.avatar} alt={member.name} className="w-full h-full object-cover" />
                 </div>
               ))}
               <div className="w-9 h-9 rounded-full border-2 border-white flex items-center justify-center" style={{ backgroundColor: '#FBCFE8' }}>
@@ -103,9 +106,9 @@ const ProjectHeader = () => {
         </div>
       </div>
 
-      {/* Bottom Row: Filter/Today on Left, Share/View Toggles on Right */}
+
       <div className="flex items-center justify-between">
-        {/* Left Side: Filter and Today */}
+       
         <div className="flex items-center gap-2 mt-4">
           <div className="relative">
             <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium text-gray-700 bg-white">
@@ -137,7 +140,7 @@ const ProjectHeader = () => {
             
             {showCalendar && (
               <div className="absolute top-full left-0 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg z-50 p-4 w-80">
-                {/* Calendar Header */}
+  
                 <div className="flex items-center justify-between mb-4">
                   <button
                     onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
@@ -156,7 +159,7 @@ const ProjectHeader = () => {
                   </button>
                 </div>
 
-                {/* Week Day Headers */}
+          
                 <div className="grid grid-cols-7 gap-1 mb-2">
                   {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
                     <div key={day} className="text-center text-xs font-medium text-gray-500 py-1">
@@ -165,7 +168,7 @@ const ProjectHeader = () => {
                   ))}
                 </div>
 
-                {/* Calendar Days */}
+           
                 <div className="grid grid-cols-7 gap-1">
                   {calendarDays.map((day, index) => {
                     const isCurrentMonthDay = isSameMonth(day, currentMonth);
@@ -189,7 +192,6 @@ const ProjectHeader = () => {
                   })}
                 </div>
 
-                {/* Today and All Buttons */}
                 <div className="mt-4 pt-4 border-t border-gray-200 flex gap-2">
                   <button
                     onClick={handleTodayClick}
@@ -217,7 +219,6 @@ const ProjectHeader = () => {
           </div>
         </div>
 
-        {/* Right Side: Share, Separator, View Toggles */}
         <div className="flex items-center gap-3 mt-4">
           <button className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium text-gray-700 bg-white">
             <Share2 size={16} />

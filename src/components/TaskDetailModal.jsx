@@ -13,8 +13,7 @@ const TaskDetailModal = ({ isOpen, onClose, task }) => {
   const [editedDueDate, setEditedDueDate] = useState('');
   const [editedReminder, setEditedReminder] = useState(false);
   const tasks = useSelector((state) => state.tasks.tasks);
-  
-  // Get the latest task data from Redux store
+ 
   const currentTask = task ? tasks[task.id] || task : null;
 
   if (!isOpen || !currentTask) return null;
@@ -47,7 +46,6 @@ const TaskDetailModal = ({ isOpen, onClose, task }) => {
     }
   };
 
-  // Reset comment when modal closes
   useEffect(() => {
     if (!isOpen) {
       setComment('');
@@ -55,7 +53,6 @@ const TaskDetailModal = ({ isOpen, onClose, task }) => {
     }
   }, [isOpen]);
 
-  // Initialize form when task changes
   useEffect(() => {
     if (currentTask) {
       setEditedDueDate(currentTask.dueDate || '');
@@ -81,7 +78,7 @@ const TaskDetailModal = ({ isOpen, onClose, task }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 overflow-y-auto">
       <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto my-8">
-        {/* Header */}
+     
         <div className="sticky top-0 bg-white border-b border-gray-200 p-6 rounded-t-2xl z-10">
           <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
@@ -103,9 +100,8 @@ const TaskDetailModal = ({ isOpen, onClose, task }) => {
             </button>
           </div>
 
-          {/* Task Metadata */}
           <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
-            {/* Due Date Section - Editable */}
+        
             <div className="flex items-center gap-2">
               {isEditingDueDate ? (
                 <div className="flex items-center gap-2 bg-gray-50 px-3 py-1 rounded border border-gray-300">
@@ -194,7 +190,6 @@ const TaskDetailModal = ({ isOpen, onClose, task }) => {
             </div>
           </div>
 
-          {/* Assignees */}
           {currentTask.assignees && currentTask.assignees.length > 0 && (
             <div className="mt-4">
               <h3 className="text-sm font-medium text-gray-700 mb-2">Assignees</h3>
@@ -214,15 +209,14 @@ const TaskDetailModal = ({ isOpen, onClose, task }) => {
           )}
         </div>
 
-        {/* Content */}
+      
         <div className="p-6 space-y-6">
-          {/* Subtasks */}
+     
           <div className="border-t border-gray-200 pt-6">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Subtasks</h3>
             <SubtaskManager task={currentTask} />
           </div>
 
-          {/* Add Comment Section */}
           <div className="border-t border-gray-200 pt-6">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Add Comment</h3>
             <form onSubmit={handleAddComment} className="space-y-3">
@@ -244,7 +238,7 @@ const TaskDetailModal = ({ isOpen, onClose, task }) => {
             </form>
           </div>
 
-          {/* Activity Log */}
+    
           <div className="border-t border-gray-200 pt-6">
             <ActivityLog activityLog={currentTask.activityLog || []} />
           </div>

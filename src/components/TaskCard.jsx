@@ -3,6 +3,9 @@ import { useDispatch } from 'react-redux';
 import { MessageSquare, FileText, MoreHorizontal, Calendar, CheckSquare2, Bell, Plus, X, Check, ChevronDown, ChevronUp } from 'lucide-react';
 import { isPast, isToday, differenceInDays } from 'date-fns';
 import { addSubtask, updateSubtask, deleteSubtask } from '../store/slices/tasksSlice';
+import firstImage from '../assets/first.png';
+import secondImage from '../assets/2nd.png';
+import thirdImage from '../assets/3nr.png';
 
 const TaskCard = ({ task, isDragging, onTaskClick, dragHandleProps }) => {
   const dispatch = useDispatch();
@@ -55,16 +58,6 @@ const TaskCard = ({ task, isDragging, onTaskClick, dragHandleProps }) => {
     }
   };
 
-  const handleCardClick = (e) => {
-    // Don't open modal if dragging or if clicking on subtask section
-    if (isDragging || e.target.closest('.subtask-section')) {
-      return;
-    }
-    if (onTaskClick) {
-      onTaskClick(task);
-    }
-  };
-
   const handleAddSubtask = (e) => {
     e.stopPropagation();
     if (newSubtaskTitle.trim()) {
@@ -114,13 +107,12 @@ const TaskCard = ({ task, isDragging, onTaskClick, dragHandleProps }) => {
   return (
     <div
       {...(dragHandleProps || {})}
-      onClick={handleCardClick}
       className={`bg-white rounded-lg p-4 shadow-md hover:shadow-lg transition-all relative ${
-        isDragging ? 'shadow-xl cursor-grabbing border-2 border-dashed' : 'cursor-pointer'
+        isDragging ? 'shadow-xl cursor-grabbing border-2 border-dashed' : 'cursor-default'
       } ${dueDateInfo?.status === 'overdue' ? 'border-l-4 border-red-500' : ''}`}
       style={isDragging ? { borderColor: '#A78BFA' } : {}}
     >
-      {/* Top Row: Priority Badge and Menu */}
+    
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-2">
           <span 
@@ -136,7 +128,7 @@ const TaskCard = ({ task, isDragging, onTaskClick, dragHandleProps }) => {
         <button 
           onClick={(e) => {
             e.stopPropagation();
-            // Handle menu click
+           
           }}
           className="p-1 hover:bg-gray-100 rounded transition-colors"
         >
@@ -144,13 +136,10 @@ const TaskCard = ({ task, isDragging, onTaskClick, dragHandleProps }) => {
         </button>
       </div>
 
-      {/* Task Title */}
       <h4 className="font-semibold text-gray-900 mb-2 text-base">{task.title}</h4>
 
-      {/* Task Description */}
       <p className="text-sm text-[#787486] mb-4 leading-relaxed">{task.description}</p>
 
-      {/* Due Date Indicator */}
       {dueDateInfo && (
         <div className={`mb-3 px-2 py-1 rounded text-xs font-medium flex items-center gap-1 ${dueDateInfo.color} border ${dueDateInfo.borderColor}`}>
           <Calendar size={12} />
@@ -158,9 +147,8 @@ const TaskCard = ({ task, isDragging, onTaskClick, dragHandleProps }) => {
         </div>
       )}
 
-      {/* Subtasks Section */}
       <div className="subtask-section mb-3" onClick={(e) => e.stopPropagation()}>
-        {/* Subtask Header - Always visible when there are subtasks or when expanded */}
+       
         {(subtasks.length > 0 || isSubtasksExpanded) && (
           <div className="mb-2">
             <button
@@ -195,10 +183,9 @@ const TaskCard = ({ task, isDragging, onTaskClick, dragHandleProps }) => {
           </div>
         )}
 
-        {/* Expanded Subtasks Content */}
         {isSubtasksExpanded && (
           <div className="space-y-2 mt-2 max-h-48 overflow-y-auto">
-            {/* Existing Subtasks */}
+         
             {subtasks.map((subtask) => (
               <div
                 key={subtask.id}
@@ -232,7 +219,6 @@ const TaskCard = ({ task, isDragging, onTaskClick, dragHandleProps }) => {
               </div>
             ))}
 
-            {/* Add Subtask Input */}
             {showAddInput ? (
               <div className="flex gap-2 mt-2">
                 <input
@@ -284,7 +270,6 @@ const TaskCard = ({ task, isDragging, onTaskClick, dragHandleProps }) => {
           </div>
         )}
 
-        {/* Show "Add subtasks" button when no subtasks and not expanded */}
         {subtasks.length === 0 && !isSubtasksExpanded && (
           <button
             onClick={(e) => {
@@ -299,34 +284,29 @@ const TaskCard = ({ task, isDragging, onTaskClick, dragHandleProps }) => {
           </button>
         )}
       </div>
-
-      {/* Bottom Section: Assignees and Stats */}
       <div className="flex items-center justify-between mt-4">
-        {/* Assignees */}
-        {task.assignees && task.assignees.length > 0 && (
-          <div className="flex -space-x-2">
-            {task.assignees.slice(0, 3).map((assignee) => (
-              <div
-                key={assignee.id}
-                className="w-7 h-7 rounded-full border-2 border-white flex items-center justify-center text-xs"
-                style={{ backgroundColor: assignee.color }}
-                title={assignee.name}
-              >
-                {assignee.avatar}
-              </div>
-            ))}
-          </div>
-        )}
+   
+        <div className="flex -space-x-2">
+          {[firstImage, secondImage, thirdImage].map((avatarImage, index) => (
+            <div
+              key={index}
+              className="w-7 h-7 rounded-full border-2 border-white flex items-center justify-center overflow-hidden"
+              style={{ backgroundColor: task.assignees && task.assignees[index] ? task.assignees[index].color : '#93C5FD' }}
+              title={task.assignees && task.assignees[index] ? task.assignees[index].name : `User ${index + 1}`}
+            >
+              <img src={avatarImage} alt={task.assignees && task.assignees[index] ? task.assignees[index].name : `User ${index + 1}`} className="w-full h-full object-cover" />
+            </div>
+          ))}
+        </div>
 
-        {/* Footer Stats */}
         <div className="flex items-center gap-4 text-xs text-[#787486]">
           <div className="flex items-center gap-1">
             <MessageSquare size={14} />
-            <span>{task.comments || 0}</span>
+            <span>{task.comments || 0} comments</span>
           </div>
           <div className="flex items-center gap-1">
             <FileText size={14} />
-            <span>{task.files || 0}</span>
+            <span>{task.files || 0} files</span>
           </div>
         </div>
       </div>

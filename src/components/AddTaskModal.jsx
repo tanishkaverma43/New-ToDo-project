@@ -58,9 +58,8 @@ const AddTaskModal = ({ isOpen, onClose, columnId }) => {
           </button>
         </div>
 
-        {/* Form */}
         <form onSubmit={handleSubmit}>
-          {/* Title */}
+  
           <div className="mb-4">
             <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
               Task Title *
@@ -76,8 +75,6 @@ const AddTaskModal = ({ isOpen, onClose, columnId }) => {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
             />
           </div>
-
-          {/* Description */}
           <div className="mb-4">
             <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
               Description
@@ -92,8 +89,6 @@ const AddTaskModal = ({ isOpen, onClose, columnId }) => {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
             />
           </div>
-
-          {/* Priority */}
           <div className="mb-4">
             <label htmlFor="priority" className="block text-sm font-medium text-gray-700 mb-2">
               Priority
@@ -107,10 +102,9 @@ const AddTaskModal = ({ isOpen, onClose, columnId }) => {
             >
               <option value="Low">Low</option>
               <option value="High">High</option>
+              <option value="Completed">Completed</option>
             </select>
           </div>
-
-          {/* Due Date */}
           <div className="mb-4">
             <label htmlFor="dueDate" className="block text-sm font-medium text-gray-700 mb-2">
               Due Date (Optional)
@@ -125,8 +119,6 @@ const AddTaskModal = ({ isOpen, onClose, columnId }) => {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
             />
           </div>
-
-          {/* Reminder */}
           <div className="mb-6">
             <label className="flex items-center gap-2 cursor-pointer">
               <input
@@ -141,8 +133,6 @@ const AddTaskModal = ({ isOpen, onClose, columnId }) => {
               </span>
             </label>
           </div>
-
-          {/* Buttons */}
           <div className="flex gap-3">
             <button
               type="button"

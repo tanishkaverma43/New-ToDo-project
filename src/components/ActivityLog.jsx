@@ -44,17 +44,17 @@ const ActivityLog = ({ activityLog }) => {
       <div className="space-y-4">
         {activityLog.map((activity, index) => (
           <div key={activity.id || index} className="relative pl-8 pb-4">
-            {/* Timeline line */}
+          
             {index !== activityLog.length - 1 && (
               <div className="absolute left-3 top-6 bottom-0 w-0.5 bg-gray-200"></div>
             )}
             
-            {/* Icon */}
+         
             <div className={`absolute left-0 top-0 w-6 h-6 rounded-full border-2 ${getActivityColor(activity.type)} flex items-center justify-center`}>
               {getActivityIcon(activity.type)}
             </div>
 
-            {/* Content */}
+        
             <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1">

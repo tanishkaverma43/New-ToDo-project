@@ -21,7 +21,7 @@ const NotificationBanner = () => {
         const dueDate = new Date(task.dueDate);
         
         if (isPast(dueDate) && !isToday(dueDate)) {
-          // Overdue
+       
           const daysOverdue = differenceInDays(now, dueDate);
           newNotifications.push({
             id: task.id,
@@ -30,7 +30,7 @@ const NotificationBanner = () => {
             taskId: task.id,
           });
         } else if (isToday(dueDate)) {
-          // Due today
+          
           newNotifications.push({
             id: task.id,
             type: 'due-today',
@@ -40,7 +40,7 @@ const NotificationBanner = () => {
         } else {
           const hoursUntilDue = differenceInHours(dueDate, now);
           if (hoursUntilDue <= 24 && hoursUntilDue > 0) {
-            // Due within 24 hours
+            
             newNotifications.push({
               id: task.id,
               type: 'due-soon',
@@ -51,7 +51,7 @@ const NotificationBanner = () => {
         }
       });
 
-      // Sort: overdue first, then due today, then due soon
+    
       newNotifications.sort((a, b) => {
         const priority = { overdue: 3, 'due-today': 2, 'due-soon': 1 };
         return (priority[b.type] || 0) - (priority[a.type] || 0);
@@ -61,7 +61,7 @@ const NotificationBanner = () => {
     };
 
     checkDueDates();
-    // Check every minute
+   
     const interval = setInterval(checkDueDates, 60000);
     return () => clearInterval(interval);
   }, [tasks, dismissedIds]);

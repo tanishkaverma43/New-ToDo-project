@@ -12,7 +12,7 @@ const Header = () => {
   return (
     <div className="bg-white border-b border-gray-200 shadow-sm px-8 py-4">
       <div className="flex items-center justify-between">
-        {/* Search */}
+       
         <div className="flex-1 max-w-md">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600" size={18} />
@@ -26,7 +26,6 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Right Side */}
         <div className="flex items-center gap-4 ml-6">
           <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
             <Calendar size={18} className="text-gray-600" />
@@ -56,7 +55,7 @@ const Header = () => {
               )}
             </div>
             <ChevronDown size={16} className="text-gray-400" />
-            {/* Dropdown Menu */}
+         
             <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
               <div className="py-1">
                 <SignOutButton>

@@ -6,111 +6,20 @@ const initialState = {
     todo: {
       id: 'todo',
       title: 'To Do',
-      taskIds: ['task-1', 'task-2'],
+      taskIds: [],
     },
     inProgress: {
       id: 'inProgress',
       title: 'On Progress',
-      taskIds: ['task-3', 'task-4', 'task-5'],
+      taskIds: [],
     },
     done: {
       id: 'done',
       title: 'Done',
-      taskIds: ['task-6', 'task-7'],
+      taskIds: [],
     },
   },
-  tasks: {
-    'task-1': {
-      id: 'task-1',
-      title: 'Brainstorming',
-      description: 'Brainstorming brings team members\' diverse experience into play.',
-      priority: 'Low',
-      comments: 12,
-      files: 0,
-      assignees: [
-        { id: '1', name: 'User 1', avatar: '👨‍💼', color: '#FF6B6B' },
-        { id: '2', name: 'User 2', avatar: '👩‍💼', color: '#4ECDC4' },
-        { id: '3', name: 'User 3', avatar: '👨‍💻', color: '#FFD93D' },
-      ],
-    },
-    'task-2': {
-      id: 'task-2',
-      title: 'Research',
-      description: 'User research helps you to create an optimal product for users.',
-      priority: 'High',
-      comments: 10,
-      files: 3,
-      assignees: [
-        { id: '1', name: 'User 1', avatar: '👨‍💼', color: '#FF6B6B' },
-        { id: '4', name: 'User 4', avatar: '👩‍🎨', color: '#95E1D3' },
-      ],
-    },
-    'task-3': {
-      id: 'task-3',
-      title: 'Brainstorming',
-      description: 'Brainstorming brings team members\' diverse experience into play.',
-      priority: 'Low',
-      comments: 12,
-      files: 0,
-      assignees: [
-        { id: '1', name: 'User 1', avatar: '👨‍💼', color: '#FF6B6B' },
-        { id: '2', name: 'User 2', avatar: '👩‍💼', color: '#4ECDC4' },
-        { id: '3', name: 'User 3', avatar: '👨‍💻', color: '#FFD93D' },
-      ],
-    },
-    'task-4': {
-      id: 'task-4',
-      title: 'Brainstorming',
-      description: 'Brainstorming brings team members\' diverse experience into play.',
-      priority: 'Low',
-      comments: 12,
-      files: 0,
-      assignees: [
-        { id: '1', name: 'User 1', avatar: '👨‍💼', color: '#FF6B6B' },
-        { id: '2', name: 'User 2', avatar: '👩‍💼', color: '#4ECDC4' },
-        { id: '3', name: 'User 3', avatar: '👨‍💻', color: '#FFD93D' },
-      ],
-    },
-    'task-5': {
-      id: 'task-5',
-      title: 'Brainstorming',
-      description: 'Brainstorming brings team members\' diverse experience into play.',
-      priority: 'Low',
-      comments: 12,
-      files: 0,
-      assignees: [
-        { id: '1', name: 'User 1', avatar: '👨‍💼', color: '#FF6B6B' },
-        { id: '2', name: 'User 2', avatar: '👩‍💼', color: '#4ECDC4' },
-        { id: '3', name: 'User 3', avatar: '👨‍💻', color: '#FFD93D' },
-      ],
-    },
-    'task-6': {
-      id: 'task-6',
-      title: 'Brainstorming',
-      description: 'Brainstorming brings team members\' diverse experience into play.',
-      priority: 'Low',
-      comments: 12,
-      files: 0,
-      assignees: [
-        { id: '1', name: 'User 1', avatar: '👨‍💼', color: '#FF6B6B' },
-        { id: '2', name: 'User 2', avatar: '👩‍💼', color: '#4ECDC4' },
-        { id: '3', name: 'User 3', avatar: '👨‍💻', color: '#FFD93D' },
-      ],
-    },
-    'task-7': {
-      id: 'task-7',
-      title: 'Design System',
-      description: 'It just needs to adapt the UI from what you did before.',
-      priority: 'Completed',
-      comments: 12,
-      files: 15,
-      assignees: [
-        { id: '1', name: 'User 1', avatar: '👨‍💼', color: '#FF6B6B' },
-        { id: '2', name: 'User 2', avatar: '👩‍💼', color: '#4ECDC4' },
-        { id: '3', name: 'User 3', avatar: '👨‍💻', color: '#FFD93D' },
-      ],
-    },
-  },
+  tasks: {},
   columnOrder: ['todo', 'inProgress', 'done'],
 };
 
@@ -142,35 +51,33 @@ const tasksSlice = createSlice({
       const sourceColumn = state.columns[sourceColumnId];
       const destinationColumn = state.columns[destinationColumnId];
 
-      // Verify the task exists in the source column at the expected index
       if (sourceColumn.taskIds[sourceIndex] !== taskId) {
-        // If not at expected index, try to find it
+   
         const foundIndex = sourceColumn.taskIds.indexOf(taskId);
         if (foundIndex === -1) {
-          return; // Task not found in source column
+          return; 
         }
-        // Remove from found index instead
+        
         sourceColumn.taskIds.splice(foundIndex, 1);
       } else {
-        // Remove from source column using the provided index
+    
         sourceColumn.taskIds.splice(sourceIndex, 1);
       }
 
-      // Adjust destination index if moving within the same column
+      
       let actualDestinationIndex = destinationIndex;
       if (sourceColumnId === destinationColumnId && destinationIndex > sourceIndex) {
-        // Moving down within the same column - adjust index since we removed an item
+      
         actualDestinationIndex = destinationIndex - 1;
       }
 
-      // Ensure destination index is within bounds
+     
       if (actualDestinationIndex < 0) {
         actualDestinationIndex = 0;
       } else if (actualDestinationIndex > destinationColumn.taskIds.length) {
         actualDestinationIndex = destinationColumn.taskIds.length;
       }
 
-      // Add to destination column
       destinationColumn.taskIds.splice(actualDestinationIndex, 0, taskId);
     },
     deleteTask: (state, action) => {
@@ -226,11 +133,11 @@ const tasksSlice = createSlice({
     addComment: (state, action) => {
       const { taskId, comment, userId, userName } = action.payload;
       if (state.tasks[taskId]) {
-        // Initialize comments array if it doesn't exist
+  
         if (!state.tasks[taskId].commentsList) {
           state.tasks[taskId].commentsList = [];
         }
-        // Add the comment
+   
         const commentId = uuidv4();
         state.tasks[taskId].commentsList.push({
           id: commentId,
@@ -239,9 +146,9 @@ const tasksSlice = createSlice({
           userName,
           timestamp: new Date().toISOString(),
         });
-        // Update comment count
+      
         state.tasks[taskId].comments = (state.tasks[taskId].comments || 0) + 1;
-        // Add to activity log if it exists
+        
         if (!state.tasks[taskId].activityLog) {
           state.tasks[taskId].activityLog = [];
         }

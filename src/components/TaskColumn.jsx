@@ -21,7 +21,7 @@ const TaskColumn = ({ column, tasks, onAddTask, onTaskClick }) => {
 
   return (
     <div className="flex flex-col h-full bg-gray-100 rounded-lg p-4">
-      {/* Column Header */}
+     
       <div className="flex items-center justify-between mb-4 px-1">
         <div className="flex items-center gap-2">
           <span 
@@ -45,10 +45,8 @@ const TaskColumn = ({ column, tasks, onAddTask, onTaskClick }) => {
         )}
       </div>
       
-      {/* Colored Line */}
       <div className="h-1 rounded-full mb-4" style={{ backgroundColor: colors.dot }}></div>
 
-      {/* Droppable Area */}
       <Droppable droppableId={column.id}>
         {(provided, snapshot) => (
           <div

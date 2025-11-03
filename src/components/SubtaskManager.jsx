@@ -47,7 +47,7 @@ const SubtaskManager = ({ task }) => {
 
   return (
     <div>
-      {/* Progress Bar */}
+     
       {subtasks.length > 0 && (
         <div className="mb-3">
           <div className="flex items-center justify-between mb-1">
@@ -65,7 +65,7 @@ const SubtaskManager = ({ task }) => {
         </div>
       )}
 
-      {/* Subtasks List */}
+     
       <div className="space-y-2 max-h-32 overflow-y-auto">
         {subtasks.map((subtask) => (
           <div
@@ -101,7 +101,7 @@ const SubtaskManager = ({ task }) => {
         ))}
       </div>
 
-      {/* Add Subtask Input */}
+     
       {showAddInput ? (
         <div className="mt-2 flex gap-2">
           <input
